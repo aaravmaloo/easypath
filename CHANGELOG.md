@@ -1,0 +1,1 @@
+v1 - INITIAL RELEASE: the whole release of the module. will fix bugs* (if any), and will also keep this module up to date, adding more features for flexibility.
