@@ -226,3 +226,19 @@ def touch_file(file_path: str) -> None:
     path = Path(file_path)
     path.touch(exist_ok=True)
     print(f"File touched: {path}")
+
+
+
+
+def remove_file(file_path: str) -> None:
+    """
+    Remove a file if it exists.
+
+    :param file_path: Path to the file to be removed.
+    """
+    path = Path(file_path)
+    if path.exists() and path.is_file():
+        path.unlink()
+        print(f"File removed: {path}")
+    else:
+        print(f"File does not exist or is not a file: {path}")
