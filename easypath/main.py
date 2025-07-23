@@ -472,3 +472,22 @@ def set_perms(path: str, read=True, write=True, execute=False):
         print(f"Permission denied while setting permissions for {path}.\n   Error: {e}")
         print("Please run as Administrator (Windows) or with sudo (Linux/macOS).")
 
+
+def list_all() -> dict:
+    """
+    List all files and folders in the current directory.
+
+    :return: Dictionary containing lists of files and folders.
+    """
+    current_path = Path.cwd()
+    
+    files = [f.name for f in current_path.iterdir() if f.is_file()]
+    folders = [f.name for f in current_path.iterdir() if f.is_dir()]
+    
+    result = {
+        'files': files,
+        'folders': folders
+    }
+    
+    print(f"Files: {files}, Folders: {folders}")
+    return result
