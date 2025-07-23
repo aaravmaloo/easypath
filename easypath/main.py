@@ -256,3 +256,26 @@ def file_exists(file_path: str) -> bool:
     print(f"File exists: {exists} for path: {path}")
     return exists
 
+
+
+def rename_file(old_name: str, new_name: str) -> None:
+    """
+    Rename a file.
+
+    :param old_name: Current name of the file.
+    :param new_name: New name for the file.
+    """
+    old_path = Path(old_name)
+    new_path = Path(new_name)
+    
+    if not old_path.exists() or not old_path.is_file():
+        print(f"File to rename does not exist or is not a file: {old_path}")
+        return
+    
+    if new_path.exists():
+        print(f"New file name already exists: {new_path}")
+        return
+    
+    old_path.rename(new_path)
+    
+    print(f"File renamed from {old_path} to {new_path}")
