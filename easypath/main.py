@@ -142,3 +142,27 @@ def copy_folder(src: str, dst: str) -> None:
             (dst_path / item.name).write_bytes(item.read_bytes())
     
     print(f"Folder copied from {src_path} to {dst_path}")
+
+
+
+def move_folder(src: str, dst: str) -> None:
+    """
+    Move a folder from source to destination.
+
+    :param src: Path to the source folder.
+    :param dst: Path to the destination folder.
+    """
+    src_path = Path(src)
+    dst_path = Path(dst)
+    
+    if not src_path.exists() or not src_path.is_dir():
+        print(f"Source folder does not exist or is not a directory: {src_path}")
+        return
+    
+    if dst_path.exists():
+        print(f"Destination folder already exists: {dst_path}")
+        return
+    
+    src_path.rename(dst_path)
+    
+    print(f"Folder moved from {src_path} to {dst_path}")
