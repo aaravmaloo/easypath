@@ -39,11 +39,9 @@ def remove_folder(folder_path: str) -> None:
         print(f"Folder does not exist or is not a directory: {path}")
         return
 
-    # Count files and subfolders
     file_count = sum(1 for _ in path.glob('**/*') if _.is_file())
     folder_count = sum(1 for _ in path.glob('**/*') if _.is_dir())
 
-    # Prompt user for confirmation
     print(f"[delete_folder] The folder '{path.name}' has {file_count} files and {folder_count} folders. Continue y/n:")
     choice = input().strip().lower()
 
@@ -51,13 +49,20 @@ def remove_folder(folder_path: str) -> None:
         print("Operation cancelled.")
         return
 
-    # Recursively delete folder contents
     for item in path.iterdir():
         if item.is_dir():
             remove_folder(item)
         else:
             item.unlink()
 
-    # Remove the folder itself
     path.rmdir()
     print(f"Folder removed: {path}")
+
+def remove_folders(folders: list) -> None:
+    """
+    Remove multiple folders if they exist.
+
+    :param folders: List of folder paths to be removed.
+    """
+    for folder in folders:
+        remove_folder(folder)
