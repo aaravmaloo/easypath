@@ -190,3 +190,28 @@ def rename_folder(old_name: str, new_name: str) -> None:
     old_path.rename(new_path)
     
     print(f"Folder renamed from {old_path} to {new_path}")
+
+
+
+def get_folder_info(folder_path: str) -> dict:
+    """
+    Get information about a folder.
+
+    :param folder_path: Path to the folder.
+    :return: Dictionary containing folder information.
+    """
+    path = Path(folder_path)
+    
+    if not path.exists() or not path.is_dir():
+        print(f"Path does not exist or is not a directory: {path}")
+        return {}
+    
+    info = {
+        'name': path.name,
+        'size': get_folder_size(folder_path),
+        'exists': folder_exists(folder_path),
+        'folders': list_folders(folder_path)
+    }
+    
+    print(f"Folder info: {info}")
+    return info
