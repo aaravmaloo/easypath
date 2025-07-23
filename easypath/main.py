@@ -386,3 +386,14 @@ def copy_file(src: str, dst: str) -> None:
     dst_path.write_bytes(src_path.read_bytes())
     
     print(f"File copied from {src_path} to {dst_path}")
+
+
+def currentdir() -> str:
+    """
+    Get the current working directory.
+
+    :return: Path to the current working directory.
+    """
+    current_dir = Path.cwd()
+    print(f"Current working directory: {current_dir}")
+    return str(current_dir)
