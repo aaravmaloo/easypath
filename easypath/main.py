@@ -416,3 +416,59 @@ def get_perms() -> dict:
     
     print(f"Current user permissions: {perms}")
     return perms
+
+
+
+import os
+import platform
+import subprocess
+import stat
+from pathlib import Path
+
+def set_perms(path: str, read=True, write=True, execute=False):
+    path = Path(path)
+
+    if not path.exists():
+        print(f"Path does not exist: {path}")
+        return
+
+    system = platform.system()
+
+    try:
+        if system == "Windows":
+            
+            if not read and not write and not execute:
+                cmd = ["icacls", str(path), "/deny", "everyone:(F)"]
+            else:
+                
+                if read and write and execute:
+                    perm = "F"
+                elif read and write:
+                    perm = "M"
+                elif read:
+                    perm = "R"
+                elif write:
+                    perm = "W"
+                else:
+                    perm = "R"
+                subprocess.run(["icacls", str(path), "/remove:d", "everyone"], stdout=subprocess.DEVNULL)
+                cmd = ["icacls", str(path), "/grant:r", f"everyone:({perm})"]
+
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            if result.returncode != 0:
+                raise PermissionError(result.stderr.strip())
+            print(f"[Windows] Permissions set for {path}")
+
+        else:
+            
+            mode = 0
+            if read: mode |= stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH
+            if write: mode |= stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH
+            if execute: mode |= stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH
+            os.chmod(path, mode)
+            print(f"[POSIX] Permissions set for {path}: {oct(mode)}")
+
+    except PermissionError as e:
+        print(f"Permission denied while setting permissions for {path}.\n   Error: {e}")
+        print("Please run as Administrator (Windows) or with sudo (Linux/macOS).")
+
