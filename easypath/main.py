@@ -321,3 +321,28 @@ def getfilesize(file_path: str) -> int:
     size = path.stat().st_size
     print(f"Size of file '{path}': {size} bytes")
     return size
+
+
+
+
+def get_file_info(file_path: str) -> dict:
+    """
+    Get information about a file.
+
+    :param file_path: Path to the file.
+    :return: Dictionary containing file information.
+    """
+    path = Path(file_path)
+    
+    if not path.exists() or not path.is_file():
+        print(f"Path does not exist or is not a file: {path}")
+        return {}
+    
+    info = {
+        'name': path.name,
+        'size': getfilesize(file_path),
+        'exists': file_exists(file_path)
+    }
+    
+    print(f"File info: {info}")
+    return info
