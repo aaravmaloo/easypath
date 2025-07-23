@@ -346,3 +346,20 @@ def get_file_info(file_path: str) -> dict:
     
     print(f"File info: {info}")
     return info
+
+def list_files(folder_path: str) -> list:
+    """
+    List all files in a given folder.
+
+    :param folder_path: Path to the directory to list files from.
+    :return: List of file names in the specified path.
+    """
+    path = Path(folder_path)
+    
+    if not path.exists() or not path.is_dir():
+        print(f"Path does not exist or is not a directory: {path}")
+        return []
+    
+    files = [f.name for f in path.iterdir() if f.is_file()]
+    print(f"Files in '{path}': {files}")
+    return files
