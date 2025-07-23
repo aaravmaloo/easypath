@@ -397,3 +397,22 @@ def currentdir() -> str:
     current_dir = Path.cwd()
     print(f"Current working directory: {current_dir}")
     return str(current_dir)
+
+
+def get_perms() -> dict:
+    """
+    Get the permissions of the current user.
+
+    :return: Dictionary containing the permissions of the current user.
+    """
+    import os
+    import stat
+
+    perms = {
+        'read': os.access(os.getcwd(), os.R_OK),
+        'write': os.access(os.getcwd(), os.W_OK),
+        'execute': os.access(os.getcwd(), os.X_OK)
+    }
+    
+    print(f"Current user permissions: {perms}")
+    return perms
