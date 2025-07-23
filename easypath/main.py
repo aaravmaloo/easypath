@@ -242,3 +242,17 @@ def remove_file(file_path: str) -> None:
         print(f"File removed: {path}")
     else:
         print(f"File does not exist or is not a file: {path}")
+
+
+def file_exists(file_path: str) -> bool:
+    """
+    Check if a file exists.
+
+    :param file_path: Path to the file to check.
+    :return: True if the file exists, False otherwise.
+    """
+    path = Path(file_path)
+    exists = path.exists() and path.is_file()
+    print(f"File exists: {exists} for path: {path}")
+    return exists
+
