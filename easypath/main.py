@@ -215,3 +215,14 @@ def get_folder_info(folder_path: str) -> dict:
     
     print(f"Folder info: {info}")
     return info
+
+
+def touch_file(file_path: str) -> None:
+    """
+    Create a file if it does not exist, or update its last modified time.
+
+    :param file_path: Path to the file to be touched.
+    """
+    path = Path(file_path)
+    path.touch(exist_ok=True)
+    print(f"File touched: {path}")
