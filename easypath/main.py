@@ -66,3 +66,20 @@ def remove_folders(folders: list) -> None:
     """
     for folder in folders:
         remove_folder(folder)
+
+
+
+def list_folders(folder_path: str) -> list:
+    """
+    List all folders in a given path.
+
+    :param folder_path: Path to the directory to list folders from.
+    :return: List of folder names in the specified path.
+    """
+    path = Path(folder_path)
+    if path.exists() and path.is_dir():
+        return [f.name for f in path.iterdir() if f.is_dir()]
+    else:
+        print(f"Path does not exist or is not a directory: {path}")
+        return []
+    
