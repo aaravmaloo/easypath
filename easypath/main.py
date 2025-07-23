@@ -166,3 +166,27 @@ def move_folder(src: str, dst: str) -> None:
     src_path.rename(dst_path)
     
     print(f"Folder moved from {src_path} to {dst_path}")
+
+
+
+def rename_folder(old_name: str, new_name: str) -> None:
+    """
+    Rename a folder.
+
+    :param old_name: Current name of the folder.
+    :param new_name: New name for the folder.
+    """
+    old_path = Path(old_name)
+    new_path = Path(new_name)
+    
+    if not old_path.exists() or not old_path.is_dir():
+        print(f"Folder to rename does not exist or is not a directory: {old_path}")
+        return
+    
+    if new_path.exists():
+        print(f"New folder name already exists: {new_path}")
+        return
+    
+    old_path.rename(new_path)
+    
+    print(f"Folder renamed from {old_path} to {new_path}")
