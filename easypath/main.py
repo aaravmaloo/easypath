@@ -15,3 +15,49 @@ def create_folder(folder_path: str) -> None:
         print(f"Folder created: {path}")
     else:
         print(f"Folder already exists: {path}")
+
+
+def create_folders(folders: list) -> None:
+    """
+    Create multiple folders if they do not exist.
+
+    :param folders: List of folder paths to be created.
+    """
+    for folder in folders:
+        create_folder(folder)
+
+
+def remove_folder(folder_path: str) -> None:
+    """
+    Remove a folder recursively if it exists, even if it is not empty.
+
+    :param folder_path: Path to the folder to be removed.
+    """
+    path = Path(folder_path)
+    
+    if not path.exists() or not path.is_dir():
+        print(f"Folder does not exist or is not a directory: {path}")
+        return
+
+    # Count files and subfolders
+    file_count = sum(1 for _ in path.glob('**/*') if _.is_file())
+    folder_count = sum(1 for _ in path.glob('**/*') if _.is_dir())
+
+    # Prompt user for confirmation
+    print(f"[delete_folder] The folder '{path.name}' has {file_count} files and {folder_count} folders. Continue y/n:")
+    choice = input().strip().lower()
+
+    if choice != 'y':
+        print("Operation cancelled.")
+        return
+
+    # Recursively delete folder contents
+    for item in path.iterdir():
+        if item.is_dir():
+            remove_folder(item)
+        else:
+            item.unlink()
+
+    # Remove the folder itself
+    path.rmdir()
+    print(f"Folder removed: {path}")
