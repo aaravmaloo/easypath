@@ -96,3 +96,22 @@ def folder_exists(folder_path: str) -> bool:
     exists = path.exists() and path.is_dir()
     print(f"Folder exists: {exists} for path: {path}")
     return exists
+
+
+def get_folder_size(folder_path: str) -> int:
+    """
+    Get the size of a folder in bytes.
+
+    :param folder_path: Path to the folder.
+    :return: Size of the folder in bytes.
+    """
+    path = Path(folder_path)
+    if not path.exists() or not path.is_dir():
+        print(f"Path does not exist or is not a directory: {path}")
+        return 0
+    
+    total_size = sum(f.stat().st_size for f in path.glob('**/*') if f.is_file())
+    print(f"Total size of folder '{path}': {total_size} bytes")
+    return total_size
+
+
