@@ -83,3 +83,16 @@ def list_folders(folder_path: str) -> list:
         print(f"Path does not exist or is not a directory: {path}")
         return []
     
+
+
+def folder_exists(folder_path: str) -> bool:
+    """
+    Check if a folder exists.
+
+    :param folder_path: Path to the folder to check.
+    :return: True if the folder exists, False otherwise.
+    """
+    path = Path(folder_path)
+    exists = path.exists() and path.is_dir()
+    print(f"Folder exists: {exists} for path: {path}")
+    return exists
