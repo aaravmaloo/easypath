@@ -302,3 +302,22 @@ def move_file(src: str, dst: str) -> None:
     src_path.rename(dst_path)
     
     print(f"File moved from {src_path} to {dst_path}")
+
+
+
+def getfilesize(file_path: str) -> int:
+    """
+    Get the size of a file in bytes.
+
+    :param file_path: Path to the file.
+    :return: Size of the file in bytes.
+    """
+    path = Path(file_path)
+    
+    if not path.exists() or not path.is_file():
+        print(f"Path does not exist or is not a file: {path}")
+        return 0
+    
+    size = path.stat().st_size
+    print(f"Size of file '{path}': {size} bytes")
+    return size
