@@ -363,3 +363,26 @@ def list_files(folder_path: str) -> list:
     files = [f.name for f in path.iterdir() if f.is_file()]
     print(f"Files in '{path}': {files}")
     return files
+
+
+def copy_file(src: str, dst: str) -> None:
+    """
+    Copy a file from source to destination.
+
+    :param src: Path to the source file.
+    :param dst: Path to the destination file.
+    """
+    src_path = Path(src)
+    dst_path = Path(dst)
+    
+    if not src_path.exists() or not src_path.is_file():
+        print(f"Source file does not exist or is not a file: {src_path}")
+        return
+    
+    if dst_path.exists():
+        print(f"Destination file already exists: {dst_path}")
+        return
+    
+    dst_path.write_bytes(src_path.read_bytes())
+    
+    print(f"File copied from {src_path} to {dst_path}")
