@@ -279,3 +279,26 @@ def rename_file(old_name: str, new_name: str) -> None:
     old_path.rename(new_path)
     
     print(f"File renamed from {old_path} to {new_path}")
+
+
+def move_file(src: str, dst: str) -> None:
+    """
+    Move a file from source to destination.
+
+    :param src: Path to the source file.
+    :param dst: Path to the destination file.
+    """
+    src_path = Path(src)
+    dst_path = Path(dst)
+    
+    if not src_path.exists() or not src_path.is_file():
+        print(f"Source file does not exist or is not a file: {src_path}")
+        return
+    
+    if dst_path.exists():
+        print(f"Destination file already exists: {dst_path}")
+        return
+    
+    src_path.rename(dst_path)
+    
+    print(f"File moved from {src_path} to {dst_path}")
