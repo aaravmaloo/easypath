@@ -1,3 +1,5 @@
 /easypath/__pycache__
 easypath/test.py
 /.idea
+
+/easypath.egg-info
